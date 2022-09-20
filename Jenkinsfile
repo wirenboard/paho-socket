@@ -1,1 +1,1 @@
-buildDebArchAll()
+buildDebArchAll defaultTargets: 'bullseye-armhf'
