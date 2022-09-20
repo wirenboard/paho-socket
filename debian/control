@@ -1,0 +1,13 @@
+Source: paho-socket
+Section: admin
+Priority: optional
+Maintainer: Petr Krasnoshchekov <petr.krasnoshchekov@wirenboard.ru>
+Build-Depends: debhelper (>= 10), dh-python, python3-all, python3-setuptools, pkg-config, python3-paho-mqtt (= 1.5.1-1)
+Standards-Version: 4.5.0
+Homepage: https://github.com/wirenboard/paho-socket
+
+Package: python3-paho-socket
+Section: python
+Architecture: all
+Depends: ${python3:Depends}, ${misc:Depends}, python3-packaging, python3-paho-mqtt (= 1.5.1-1)
+Description: Thin layer built on top of paho-mqtt allowing for connections with unix socket brokers
