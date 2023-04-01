@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Petr Krasnoshchekov <petr.krasnoshchekov@wirenboard.ru>
 Build-Depends: debhelper (>= 10), dh-python, python3-all, python3-setuptools, pkg-config, python3-paho-mqtt (= 1.5.1-1)
 Standards-Version: 4.5.0
-Homepage: https://github.com/wirenboard/paho-socket
+Vcs-Git: https://github.com/wirenboard/paho-socket
+Homepage: https://github.com/mgetka/paho-socket
 
 Package: python3-paho-socket
 Section: python
