@@ -3,7 +3,7 @@ import os.path
 import signal
 import socket
 import subprocess
-from distutils.version import LooseVersion
+from packaging.version import Version
 from time import sleep
 
 import pytest
@@ -38,8 +38,8 @@ def broker():
     for line in ret.stdout.decode().splitlines():
         if "version" in line:
             *_, raw_version = line.rpartition(" ")
-            version = LooseVersion(raw_version)
-            if version < "2":
+            version = Version(raw_version)
+            if version < Version("2"):
                 pytest.skip("Mosquitto >=2.0.0 is required for the tests.")
             break
 
