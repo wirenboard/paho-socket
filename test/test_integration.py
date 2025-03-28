@@ -23,7 +23,7 @@ def test_communication(broker):
         if msg.payload == b"socket_message":
             recv_socket_message = True
 
-    if paho.mqtt.__version__[0] > '1':
+    if paho.mqtt.__version__.startswith("2"):
         tcp = mqttClient.Client(mqttClient.CallbackAPIVersion.VERSION1)
     else:
         tcp = mqttClient.Client()

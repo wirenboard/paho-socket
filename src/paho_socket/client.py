@@ -3,7 +3,7 @@ import socket
 
 import paho.mqtt
 from paho.mqtt import client as _client
-if paho.mqtt.__version__[0] > '1':
+if paho.mqtt.__version__.startswith("2"):
     mqtt_cs_connect_async = _client._ConnectionState.MQTT_CS_CONNECT_ASYNC
 else:
     mqtt_cs_connect_async = _client.mqtt_cs_connect_async
@@ -15,7 +15,7 @@ class Client(_client.Client):
     # pylint: disable=redefined-outer-name,too-many-instance-attributes
 
     def __init__(self, *args, **kwargs):
-        if paho.mqtt.__version__[0] > '1':
+        if paho.mqtt.__version__.startswith("2"):
             kwargs["callback_api_version"] = _client.CallbackAPIVersion.VERSION1
         super().__init__(*args, **kwargs)
         self._socket = None
