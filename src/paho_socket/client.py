@@ -1,7 +1,12 @@
 """Socket capable client extension implementation."""
 import socket
 
+import paho.mqtt
 from paho.mqtt import client as _client
+if paho.mqtt.__version__.startswith("2"):
+    mqtt_cs_connect_async = _client._ConnectionState.MQTT_CS_CONNECT_ASYNC
+else:
+    mqtt_cs_connect_async = _client.mqtt_cs_connect_async
 
 
 class Client(_client.Client):
@@ -10,6 +15,8 @@ class Client(_client.Client):
     # pylint: disable=redefined-outer-name,too-many-instance-attributes
 
     def __init__(self, *args, **kwargs):
+        if paho.mqtt.__version__.startswith("2"):
+            kwargs["callback_api_version"] = _client.CallbackAPIVersion.VERSION1
         super().__init__(*args, **kwargs)
         self._socket = None
 
@@ -82,7 +89,7 @@ class Client(_client.Client):
             clean_start
         )
         self._connect_properties = properties
-        self._state = _client.mqtt_cs_connect_async
+        self._state = mqtt_cs_connect_async
 
         # We need to pas some junk data here, since for some unknown reason reconnect checks
         # validity of those field on each reconnect, even though they are already validated by

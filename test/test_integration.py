@@ -1,6 +1,7 @@
 from time import sleep
 
-import paho.mqtt.client
+import paho.mqtt
+import paho.mqtt.client as mqttClient
 import pytest
 
 import paho_socket
@@ -22,7 +23,10 @@ def test_communication(broker):
         if msg.payload == b"socket_message":
             recv_socket_message = True
 
-    tcp = paho.mqtt.client.Client()
+    if paho.mqtt.__version__.startswith("2"):
+        tcp = mqttClient.Client(mqttClient.CallbackAPIVersion.VERSION1)
+    else:
+        tcp = mqttClient.Client()
     tcp.on_message = tcp_message
     tcp.connect("127.0.0.1", 8520)
 
